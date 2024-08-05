@@ -1,1 +1,1 @@
-openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c "program build/PCMS.elf verify reset exit"
+openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c "program build/PCMACS.elf verify reset exit"
