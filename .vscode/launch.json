@@ -7,7 +7,7 @@
             "request": "launch",
             "cwd": "${workspaceRoot}",
             "servertype": "openocd",
-            "executable": "./build/PCMS.elf",
+            "executable": "./build/PCMACS.elf",
             "svdFile": "STM32F411CEUx_FLASH.ld",
             "configFiles": [
                 "interface/stlink-v2.cfg",

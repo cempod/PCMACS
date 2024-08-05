@@ -4,6 +4,19 @@
         "rtos.h": "c",
         "display.h": "c",
         "display_interface.h": "c",
-        "lv_color.h": "c"
+        "lv_color.h": "c",
+        "stm32f4xx_ll_bus.h": "c",
+        "stm32f4xx_ll_dma.h": "c",
+        "dma.h": "c",
+        "main.h": "c",
+        "lvgl.h": "c",
+        "st7789.h": "c",
+        "stm32f4xx.h": "c",
+        "board.h": "c",
+        "gpio.h": "c",
+        "stm32f4xx_ll_gpio.h": "c",
+        "stm32f4xx_ll_spi.h": "c",
+        "spi.h": "c",
+        "stm32f4xx_ll_rcc.h": "c"
     }
 }
