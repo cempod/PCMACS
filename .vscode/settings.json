@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "freertosconfig.h": "c",
+        "rtos.h": "c",
+        "display.h": "c",
+        "display_interface.h": "c",
+        "lv_color.h": "c"
+    }
+}
