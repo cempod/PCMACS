@@ -18,7 +18,7 @@ gpio_init(void) {
 
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
     gpio_init.Pin = LED_Pin;
-    LL_GPIO_Init(GPIOA, &gpio_init);
+    LL_GPIO_Init(GPIOC, &gpio_init);
     
     LL_GPIO_SetOutputPin(LED_GPIO_Port,LED_Pin);
     LL_GPIO_SetOutputPin(BLK_GPIO_Port,BLK_Pin);
