@@ -60,6 +60,8 @@ file(GLOB SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/*.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/*.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Display_task/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Display_task/*.cpp"
 )
 
 
