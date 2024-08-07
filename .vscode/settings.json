@@ -17,6 +17,7 @@
         "stm32f4xx_ll_gpio.h": "c",
         "stm32f4xx_ll_spi.h": "c",
         "spi.h": "c",
-        "stm32f4xx_ll_rcc.h": "c"
+        "stm32f4xx_ll_rcc.h": "c",
+        "backlight.h": "c"
     }
 }

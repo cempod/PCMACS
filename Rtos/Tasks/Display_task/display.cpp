@@ -81,6 +81,7 @@ display_task(void* arg) {
         taskENTER_CRITICAL();
         lv_timer_handler();
         taskEXIT_CRITICAL();
+        vTaskDelay(pdMS_TO_TICKS(5));
     }
 }
 

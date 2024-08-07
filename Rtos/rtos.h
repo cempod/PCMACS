@@ -4,6 +4,9 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+extern TaskHandle_t display_task_handle;
+extern TaskHandle_t backlite_task_handle;
+
 void threads_init(void);
 
 #endif
