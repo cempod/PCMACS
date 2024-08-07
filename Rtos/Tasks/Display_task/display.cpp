@@ -65,6 +65,18 @@ display_task(void* arg) {
     Label gpu_temp_label(75,0, &lv_font_montserrat_30);
     gpu_temp_label.set_text("50°");
 
+    Label cpu_load_label(-69,50, &lv_font_montserrat_14);
+    cpu_load_label.set_text("100%");
+
+    Label gpu_load_label(69,50, &lv_font_montserrat_14);
+    gpu_load_label.set_text("100%");
+
+    Label cpu_label(-69,69, &lv_font_montserrat_14);
+    cpu_label.set_text("CPU");
+
+    Label gpu_label(69,69, &lv_font_montserrat_14);
+    gpu_label.set_text("GPU");
+
     while (1) {
         taskENTER_CRITICAL();
         lv_timer_handler();
