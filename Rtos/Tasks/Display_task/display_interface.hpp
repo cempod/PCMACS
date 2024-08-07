@@ -24,3 +24,22 @@ class LoadMeter {
         void set_angles(int a, int b);
         void set_reverse(bool rev);
 };
+
+class LabelLine {
+    private:
+        lv_style_t style_line;
+        lv_obj_t * line_l;
+
+    public:
+    LabelLine(lv_point_precise_t* points, int num);
+    void set_offsets(int x_offset, int y_offset);
+};
+
+class Label {
+    private:
+    lv_obj_t * label;
+
+    public:
+    Label(int x_offset, int y_offset, const lv_font_t * font);
+    void set_text(const char * text);
+};

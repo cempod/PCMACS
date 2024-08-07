@@ -25,17 +25,45 @@ display_task(void* arg) {
 
     interface_init();
 
-    LoadMeter cpu_meter(-220,0,220);
+    LoadMeter cpu_meter(-230,0,240);
     cpu_meter.set_rotation(305);
     cpu_meter.set_angles(20,90);
     cpu_meter.set_reverse(true);
-    cpu_meter.set_load(15);
+    cpu_meter.set_load(100);
 
-    LoadMeter gpu_meter(220,0,220);
+    LoadMeter gpu_meter(230,0,240);
     gpu_meter.set_rotation(125);
     gpu_meter.set_angles(20,90);
     gpu_meter.set_reverse(false);
-    gpu_meter.set_load(78);
+    gpu_meter.set_load(100);
+
+    lv_point_precise_t cpu_line_l_points[] = { {0, 0}, {23, 13},{58, 13}};
+    LabelLine cpu_load_label_line(cpu_line_l_points,3);
+    cpu_load_label_line.set_offsets(-80,53);
+
+    lv_point_precise_t gpu_line_l_points[] = { {0, 13}, {35, 13},{58, 0}};
+    LabelLine gpu_load_label_line(gpu_line_l_points,3);
+    gpu_load_label_line.set_offsets(80,53);
+
+    lv_point_precise_t cpu_temp_line_l_points[] = { {0, 10}, {0, 0},{22, 0}};
+    LabelLine cpu_temp_label_line(cpu_temp_line_l_points,3);
+    cpu_temp_label_line.set_offsets(-68,-43);
+
+    lv_point_precise_t gpu_temp_line_l_points[] = { {0, 0}, {22, 0},{22, 10}};
+    LabelLine gpu_temp_label_line(gpu_temp_line_l_points,3);
+    gpu_temp_label_line.set_offsets(68,-43);
+    
+    Label temp_label(0,-49, &lv_font_montserrat_14);
+    temp_label.set_text("Temperature");
+
+    Label load_label(0,59, &lv_font_montserrat_14);
+    load_label.set_text("Load");
+
+    Label cpu_temp_label(-75,0, &lv_font_montserrat_30);
+    cpu_temp_label.set_text("50°");
+
+    Label gpu_temp_label(75,0, &lv_font_montserrat_30);
+    gpu_temp_label.set_text("50°");
 
     while (1) {
         taskENTER_CRITICAL();
