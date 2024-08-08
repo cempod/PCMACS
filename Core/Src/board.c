@@ -3,6 +3,7 @@
 #include "gpio.h"
 #include "spi.h"
 #include "pwm.h"
+#include "exti.h"
 
 void
 board_init(void) {
@@ -17,5 +18,7 @@ board_init(void) {
     spi_config();
 
     pwm_init();
+
+    exti_init();
 
 }
