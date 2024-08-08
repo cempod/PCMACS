@@ -2,6 +2,7 @@
 #include "rcc.h"
 #include "gpio.h"
 #include "spi.h"
+#include "pwm.h"
 
 void
 board_init(void) {
@@ -14,5 +15,7 @@ board_init(void) {
     gpio_init();
 
     spi_config();
+
+    pwm_init();
 
 }

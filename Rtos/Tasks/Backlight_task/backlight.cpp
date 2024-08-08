@@ -7,8 +7,6 @@ extern "C" {
 void
 backlight_task(void* arg) {
 
-    pwm_init();
-
     uint8_t step = 1;
     while(1) {
         static uint32_t ulNotifiedValue;
