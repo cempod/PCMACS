@@ -7,15 +7,14 @@ extern "C" {
 void
 backlight_task(void* arg) {
 
-pwm_init();
+    pwm_init();
 
-BaseType_t xResult;
-uint32_t ulNotifiedValue;
-uint8_t target_brightness = 0;
-uint8_t current_brightness = 0;
-uint8_t step = 1;
+    uint8_t step = 1;
     while(1) {
-        xResult = xTaskNotifyWait( pdFALSE, 0xFFFFFF, &ulNotifiedValue, pdMS_TO_TICKS(1));
+        static uint32_t ulNotifiedValue;
+        static uint8_t target_brightness = 0;
+        static uint8_t current_brightness = 0;
+        BaseType_t xResult = xTaskNotifyWait( pdFALSE, 0xFFFFFF, &ulNotifiedValue, pdMS_TO_TICKS(1));
         if( xResult == pdPASS ) {
             target_brightness = (uint8_t)ulNotifiedValue;
         }
