@@ -77,6 +77,8 @@ display_task(void* arg) {
     Label gpu_label(69,69, &lv_font_montserrat_14);
     gpu_label.set_text("GPU");
 
+    xTaskNotify(backlight_task_handle, 100, eSetValueWithOverwrite);
+
     while (1) {
         taskENTER_CRITICAL();
         lv_timer_handler();

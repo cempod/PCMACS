@@ -26,7 +26,7 @@ pwm_init(void) {
 
     LL_TIM_OC_SetMode(TIM3, LL_TIM_CHANNEL_CH1, LL_TIM_OCMODE_PWM1);
   
-    LL_TIM_OC_SetCompareCH1(TIM3, 100);
+    LL_TIM_OC_SetCompareCH1(TIM3, 0);
   
     LL_TIM_OC_EnablePreload(TIM3, LL_TIM_CHANNEL_CH1);
   
@@ -36,4 +36,9 @@ pwm_init(void) {
 
     LL_TIM_GenerateEvent_UPDATE(TIM3);
   
+}
+
+void
+set_pwm(uint8_t pwm) {
+    LL_TIM_OC_SetCompareCH1(TIM3, pwm < 100 ? pwm : 100);
 }
