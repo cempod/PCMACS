@@ -1,6 +1,4 @@
-extern "C" {
 #include "backlight.h"
-}
 #include "rtos.h"
 #include "pwm.h"
 

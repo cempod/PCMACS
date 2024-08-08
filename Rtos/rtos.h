@@ -6,6 +6,7 @@
 
 extern TaskHandle_t display_task_handle;
 extern TaskHandle_t backlight_task_handle;
+extern TaskHandle_t pwr_btn_task_handle;
 
 void threads_init(void);
 

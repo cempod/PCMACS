@@ -53,6 +53,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/Rtos
     ${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Display_task
     ${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Backlight_task
+    ${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Pwr_btn_task
 )
 
 # Add you source file
@@ -64,6 +65,7 @@ file(GLOB SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Display_task/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Backlight_task/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Pwr_btn_task/*.cpp"
 )
 
 
