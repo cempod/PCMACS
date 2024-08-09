@@ -42,17 +42,15 @@ EXTI15_10_IRQHandler(void) {
 
 void
 PWR_BTN_Callback() {
-    static uint8_t brightness = 100;
-    if(brightness==100) {
-        brightness = 0;
-    } else {
-        brightness = 100;
-    }
     static TickType_t last_tick = 0; 
-    if(pdTICKS_TO_MS(xTaskGetTickCountFromISR() - last_tick) > 100) {
+    if(pdTICKS_TO_MS(xTaskGetTickCountFromISR() - last_tick) >= 200) {
         BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-        xTaskNotifyFromISR(backlight_task_handle, brightness, eSetValueWithOverwrite, &xHigherPriorityTaskWoken);
+        xTaskNotifyFromISR(backlight_task_handle, 100, eSetValueWithOverwrite, &xHigherPriorityTaskWoken);
         portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+        xTaskNotifyFromISR(pwr_btn_task_handle, xTaskGetTickCountFromISR(), eSetValueWithOverwrite, &xHigherPriorityTaskWoken);
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    } else {
+        last_tick = 0;
     }
     last_tick = xTaskGetTickCountFromISR();
 }

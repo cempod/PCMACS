@@ -7,12 +7,12 @@ backlight_task(void* arg) {
     uint8_t step = 5;
 
     while (1) {
-        static uint32_t ulNotifiedValue;
+        static uint32_t brightness_notified_val;
         static uint8_t target_brightness = 0;
         static uint8_t current_brightness = 0;
-        BaseType_t xResult = xTaskNotifyWait(pdFALSE, 0xFFFFFF, &ulNotifiedValue, pdMS_TO_TICKS(1));
+        BaseType_t xResult = xTaskNotifyWait(pdFALSE, 0xFFFFFF, &brightness_notified_val, pdMS_TO_TICKS(1));
         if (xResult == pdPASS) {
-            target_brightness = (uint8_t)ulNotifiedValue;
+            target_brightness = (uint8_t)brightness_notified_val;
         }
         if (target_brightness != current_brightness) {
             if (target_brightness > current_brightness) {
