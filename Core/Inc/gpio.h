@@ -7,16 +7,18 @@ extern "C" {
 
 #include "stm32f4xx_ll_gpio.h"
 
-#define LED_Pin LL_GPIO_PIN_13
-#define LED_GPIO_Port GPIOC
-#define RST_Pin LL_GPIO_PIN_2
-#define RST_GPIO_Port GPIOA
-#define DC_Pin LL_GPIO_PIN_3
-#define DC_GPIO_Port GPIOA
-#define CS_Pin LL_GPIO_PIN_4
-#define CS_GPIO_Port GPIOA
-#define BLK_Pin LL_GPIO_PIN_6
-#define BLK_GPIO_Port GPIOA
+#define LED_Pin                 LL_GPIO_PIN_13
+#define LED_GPIO_Port           GPIOC
+#define RST_Pin                 LL_GPIO_PIN_2
+#define RST_GPIO_Port           GPIOA
+#define DC_Pin                  LL_GPIO_PIN_3
+#define DC_GPIO_Port            GPIOA
+#define CS_Pin                  LL_GPIO_PIN_4
+#define CS_GPIO_Port            GPIOA
+#define BLK_Pin                 LL_GPIO_PIN_6
+#define BLK_GPIO_Port           GPIOA
+#define PWR_TRIG_Pin            LL_GPIO_PIN_2
+#define PWR_TRIG_GPIO_Port      GPIOB
 
 void gpio_init(void);
 
