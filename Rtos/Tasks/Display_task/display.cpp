@@ -5,6 +5,7 @@
 #include "ST7789/st7789.h"
 #include "lvgl/lvgl.h"
 #include "display_interface.hpp"
+#include <stdio.h>
 
 void my_disp_flush(lv_display_t * disp, const lv_area_t * area, uint8_t * color_p);
 
@@ -29,13 +30,13 @@ display_task(void* arg) {
     cpu_meter.set_rotation(305);
     cpu_meter.set_angles(20,90);
     cpu_meter.set_reverse(true);
-    cpu_meter.set_load(100);
+    cpu_meter.set_load(0);
 
     LoadMeter gpu_meter(230,0,240);
     gpu_meter.set_rotation(125);
     gpu_meter.set_angles(20,90);
     gpu_meter.set_reverse(false);
-    gpu_meter.set_load(100);
+    gpu_meter.set_load(0);
 
     lv_point_precise_t cpu_line_l_points[] = { {0, 0}, {23, 13},{58, 13}};
     LabelLine cpu_load_label_line(cpu_line_l_points,3);
@@ -60,16 +61,16 @@ display_task(void* arg) {
     load_label.set_text("Load");
 
     Label cpu_temp_label(-75,0, &lv_font_montserrat_30);
-    cpu_temp_label.set_text("50°");
+    cpu_temp_label.set_text("-");
 
     Label gpu_temp_label(75,0, &lv_font_montserrat_30);
-    gpu_temp_label.set_text("50°");
+    gpu_temp_label.set_text("-");
 
     Label cpu_load_label(-69,50, &lv_font_montserrat_14);
-    cpu_load_label.set_text("100%");
+    cpu_load_label.set_text("-");
 
     Label gpu_load_label(69,50, &lv_font_montserrat_14);
-    gpu_load_label.set_text("100%");
+    gpu_load_label.set_text("-");
 
     Label cpu_label(-69,69, &lv_font_montserrat_14);
     cpu_label.set_text("CPU");
@@ -80,6 +81,22 @@ display_task(void* arg) {
     xTaskNotify(backlight_task_handle, 100, eSetValueWithOverwrite);
 
     while (1) {
+        static uint32_t telemetry_notified_val=0;
+        BaseType_t xResult = xTaskNotifyWait(pdFALSE, 0xFFFFFF, &telemetry_notified_val, pdMS_TO_TICKS(1));
+        if (xResult == pdPASS) {
+            char str[4];
+            cpu_meter.set_load((uint8_t)(telemetry_notified_val>>16));
+            sprintf(str,"%i%%",(uint8_t)(telemetry_notified_val>>16));
+            cpu_load_label.set_text(str);
+            gpu_meter.set_load((uint8_t)(telemetry_notified_val>>24));
+            sprintf(str,"%i%%",(uint8_t)(telemetry_notified_val>>24));
+            gpu_load_label.set_text(str);
+            sprintf(str,"%i°",(uint8_t)(telemetry_notified_val));
+            cpu_temp_label.set_text(str);
+            sprintf(str,"%i°",(uint8_t)(telemetry_notified_val>>8));
+            gpu_temp_label.set_text(str);
+            
+        }
         taskENTER_CRITICAL();
         lv_timer_handler();
         taskEXIT_CRITICAL();

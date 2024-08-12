@@ -20,9 +20,13 @@ usb_cdc_task(void* arg) {
 static void receive_serial_port(uint8_t itf, uint8_t buf[], uint32_t count) {
     if (count == 6) {
         if (strcmp((const char *)buf, "PCMACS") == 0) {//Handshake
-            tud_cdc_n_write(itf,"OK",2);
+            tud_cdc_n_write(itf, "OK",2);
             tud_cdc_n_write_flush(itf);
         }
+    }
+    if (count == 4) {
+        uint32_t telemetry = buf[0] | buf[1] << 8 | buf[2] << 16 | buf[3] << 24;
+        xTaskNotify(display_task_handle, telemetry, eSetValueWithOverwrite);
     }
 }
 
