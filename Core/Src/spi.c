@@ -4,7 +4,7 @@
 #include "stm32f4xx_ll_bus.h"
 
 void
-spi_config() {
+spi_init() {
     
     LL_SPI_InitTypeDef spi_init = {0};
 

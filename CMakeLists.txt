@@ -42,6 +42,7 @@ endif ()
 set(DEFINES
     -DSTM32F411xE
     -DUSE_FULL_LL_DRIVER
+    -DCFG_TUSB_MCU=OPT_MCU_STM32F4
 )
 
 add_definitions(${DEFINES})
@@ -54,6 +55,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Display_task
     ${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Backlight_task
     ${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Pwr_btn_task
+    ${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Usb_cdc_task
 )
 
 # Add you source file
@@ -66,6 +68,7 @@ file(GLOB SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Display_task/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Backlight_task/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Pwr_btn_task/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Rtos/Tasks/Usb_cdc_task/*.cpp"
 )
 
 
@@ -97,6 +100,22 @@ target_link_libraries(${PROJECT_NAME}.elf
     LL_Drivers
 )
 
+add_library(tinyusb_config)
+target_include_directories(tinyusb_config PRIVATE
+	${CMAKE_SOURCE_DIR}/tinyusb/src
+	${CMAKE_SOURCE_DIR}/Core/Inc
+    ${CMAKE_SOURCE_DIR}/CMSIS/Inc
+	)                            
+target_sources(tinyusb_config PRIVATE
+	${CMAKE_SOURCE_DIR}/tinyusb/src/portable/synopsys/dwc2/dcd_dwc2.c
+   )
+
+add_subdirectory(tinyusb/src)
+
+target_link_libraries(${PROJECT_NAME}.elf
+    tinyusb
+    tinyusb_config
+)
 
 add_library(freertos_config INTERFACE)
 target_include_directories(freertos_config SYSTEM

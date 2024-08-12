@@ -4,6 +4,7 @@
 #include "spi.h"
 #include "pwm.h"
 #include "exti.h"
+#include "usb.h"
 
 void
 board_init(void) {
@@ -15,10 +16,12 @@ board_init(void) {
 
     gpio_init();
 
-    spi_config();
+    spi_init();
 
     pwm_init();
 
     exti_init();
+
+    usb_init();
 
 }

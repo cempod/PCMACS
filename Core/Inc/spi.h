@@ -4,6 +4,6 @@
 #include "stm32f4xx_ll_gpio.h"
 #include "stm32f4xx_ll_spi.h"
 
-void spi_config();
+void spi_init();
 
 #endif

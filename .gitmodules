@@ -4,3 +4,6 @@
 [submodule "lvgl"]
 	path = lvgl
 	url = https://github.com/lvgl/lvgl.git
+[submodule "tinyusb"]
+	path = tinyusb
+	url = https://github.com/hathach/tinyusb.git
