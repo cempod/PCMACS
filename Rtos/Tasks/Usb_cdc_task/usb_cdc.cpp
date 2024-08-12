@@ -41,8 +41,15 @@ static void cdc_task(void) {
     }
 }
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 void
 OTG_FS_IRQHandler(void)
 {
   tud_int_handler(0);
 }
+#ifdef __cplusplus
+}
+#endif
