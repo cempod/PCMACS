@@ -2,11 +2,6 @@
 
 #include <stdint.h>
 
-enum USB_STATUS{
-    USB_OK = 0,
-    USB_DISCONNECTED
-};
-
 void interface_init(void);
 
 class LoadMeter {
@@ -23,6 +18,7 @@ class LoadMeter {
         void set_rotation(int val);
         void set_angles(int a, int b);
         void set_reverse(bool rev);
+        void set_visibility(bool visibility);
 };
 
 class LabelLine {
@@ -33,6 +29,7 @@ class LabelLine {
     public:
     LabelLine(lv_point_precise_t* points, int num);
     void set_offsets(int x_offset, int y_offset);
+    void set_visibility(bool visibility);
 };
 
 class Label {
@@ -43,4 +40,5 @@ class Label {
     public:
     Label(int x_offset, int y_offset, const lv_font_t * font);
     void set_text(const char* msg, ...);
+    void set_visibility(bool visibility);
 };

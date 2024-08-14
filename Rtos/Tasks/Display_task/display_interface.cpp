@@ -3,29 +3,9 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-/*char pct[4];
-lv_obj_t * cpu_pct;
-lv_obj_t * cpu_temp_label;
-lv_obj_t * gpu_arc;
-lv_anim_t gpu_arc_anim;
-lv_obj_t * gpu_pct;
-lv_obj_t * gpu_temp_label;
-lv_obj_t * usb_connection_label;*/
-
 void interface_init(){
     lv_obj_set_style_bg_color ( lv_screen_active() , lv_palette_darken(LV_PALETTE_GREY,4),0) ;
     lv_obj_set_scrollbar_mode(lv_screen_active(), LV_SCROLLBAR_MODE_OFF);
-    
-    /*Usb connection label
-    usb_connection_label = lv_label_create(lv_screen_active());
-    lv_label_set_long_mode(usb_connection_label, LV_LABEL_LONG_WRAP); 
-    lv_label_set_text(usb_connection_label, LV_SYMBOL_USB);
-    lv_obj_set_width(usb_connection_label, 70); 
-    lv_obj_set_style_text_align(usb_connection_label, LV_TEXT_ALIGN_CENTER, 0);
-    lv_obj_align(usb_connection_label, LV_ALIGN_CENTER, 0, -100);
-    lv_obj_set_style_text_color(usb_connection_label,lv_palette_main(LV_PALETTE_RED),0);*/ 
-    //lv_obj_set_style_text_font(usb_connection_label,&lv_font_montserrat_30,0);
-
 }
 
 LoadMeter::LoadMeter(int x_offset, int y_offset, int size) {
@@ -67,6 +47,15 @@ LoadMeter::set_reverse(bool rev) {
     lv_arc_set_mode(arc, rev ? LV_ARC_MODE_REVERSE : LV_ARC_MODE_NORMAL);
 }
 
+void
+LoadMeter::set_visibility(bool visibility) {
+    if (visibility) { 
+    lv_obj_remove_flag(arc, LV_OBJ_FLAG_HIDDEN);
+    } else {
+    lv_obj_add_flag(arc, LV_OBJ_FLAG_HIDDEN);
+    }
+}
+
 LabelLine::LabelLine(lv_point_precise_t * points, int num) {
     lv_style_init(&style_line);
     lv_style_set_line_width(&style_line, 2);
@@ -81,6 +70,15 @@ LabelLine::LabelLine(lv_point_precise_t * points, int num) {
 void
 LabelLine::set_offsets(int x_offset, int y_offset) {
     lv_obj_align(line_l, LV_ALIGN_CENTER, x_offset, y_offset);
+}
+
+void
+LabelLine::set_visibility(bool visibility) {
+    if (visibility) { 
+    lv_obj_remove_flag(line_l, LV_OBJ_FLAG_HIDDEN);
+    } else {
+    lv_obj_add_flag(line_l, LV_OBJ_FLAG_HIDDEN);
+    }
 }
 
 Label::Label(int x_offset, int y_offset, const lv_font_t * font) {
@@ -102,44 +100,12 @@ Label::set_text(const char* msg, ...) {
     va_end(ap);
     lv_label_set_text(label, str);
 }
-/*void set_cpu_temp(uint32_t temp){
-    sprintf(pct,"%i°",(int)temp);
-    lv_label_set_text(cpu_temp_label, pct);
-}
-void set_gpu_temp(uint32_t temp){
-    sprintf(pct,"%i°",(int)temp);
-    lv_label_set_text(gpu_temp_label, pct);
-}
-void set_cpu_load(uint32_t load, uint32_t load_old){
-    lv_anim_set_values(&cpu_arc_anim, load_old, load);
-    lv_anim_start(&cpu_arc_anim);
-    sprintf(pct,"%i%%",(int)load);
-    lv_label_set_text(cpu_pct, pct);
-}
-void set_gpu_load(uint32_t load, uint32_t load_old){
-    lv_anim_set_values(&gpu_arc_anim, load_old, load);
-    lv_anim_start(&gpu_arc_anim);
-    sprintf(pct,"%i%%",(int)load);
-    lv_label_set_text(gpu_pct, pct);
-}
-void set_usb_status(uint8_t status){
-    switch (status){
-    case USB_OK:
-        lv_label_set_text(usb_connection_label, "");
-        break;
-    case USB_DISCONNECTED:
-        lv_label_set_text(usb_connection_label, LV_SYMBOL_USB);
-        set_cpu_temp(0);
-        set_gpu_temp(0);
-        set_cpu_load(0,0);
-        set_gpu_load(0,0);
-        break;
-    default:
-        lv_label_set_text(usb_connection_label, LV_SYMBOL_USB);
-        set_cpu_temp(0);
-        set_gpu_temp(0);
-        set_cpu_load(0,0);
-        set_gpu_load(0,0);
-        break;
+
+void
+Label::set_visibility(bool visibility) {
+    if (visibility) { 
+    lv_obj_remove_flag(label, LV_OBJ_FLAG_HIDDEN);
+    } else {
+    lv_obj_add_flag(label, LV_OBJ_FLAG_HIDDEN);
     }
-}*/
+}
