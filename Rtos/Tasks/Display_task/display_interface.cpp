@@ -1,6 +1,7 @@
 #include "lvgl.h"
 #include "display_interface.hpp"
 #include <stdio.h>
+#include <stdarg.h>
 
 /*char pct[4];
 lv_obj_t * cpu_pct;
@@ -94,8 +95,12 @@ Label::Label(int x_offset, int y_offset, const lv_font_t * font) {
 }
 
 void
-Label::set_text(const char * text) {
-    lv_label_set_text(label, text);
+Label::set_text(const char* msg, ...) {
+    va_list ap;
+    va_start(ap, msg);
+    vsprintf(str, msg, ap);
+    va_end(ap);
+    lv_label_set_text(label, str);
 }
 /*void set_cpu_temp(uint32_t temp){
     sprintf(pct,"%i°",(int)temp);

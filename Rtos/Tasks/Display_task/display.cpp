@@ -86,15 +86,11 @@ display_task(void* arg) {
         if (xResult == pdPASS) {
             char str[4];
             cpu_meter.set_load((uint8_t)(telemetry_notified_val>>16));
-            sprintf(str,"%i%%",(uint8_t)(telemetry_notified_val>>16));
-            cpu_load_label.set_text(str);
+            cpu_load_label.set_text("%i%%",(uint8_t)(telemetry_notified_val>>16));
             gpu_meter.set_load((uint8_t)(telemetry_notified_val>>24));
-            sprintf(str,"%i%%",(uint8_t)(telemetry_notified_val>>24));
-            gpu_load_label.set_text(str);
-            sprintf(str,"%i°",(uint8_t)(telemetry_notified_val));
-            cpu_temp_label.set_text(str);
-            sprintf(str,"%i°",(uint8_t)(telemetry_notified_val>>8));
-            gpu_temp_label.set_text(str);
+            gpu_load_label.set_text("%i%%",(uint8_t)(telemetry_notified_val>>24));
+            cpu_temp_label.set_text("%i°",(uint8_t)(telemetry_notified_val));
+            gpu_temp_label.set_text("%i°",(uint8_t)(telemetry_notified_val>>8));
             
         }
         taskENTER_CRITICAL();
