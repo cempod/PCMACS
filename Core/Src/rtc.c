@@ -8,12 +8,15 @@ void
 rtc_init(uint8_t hour, uint8_t minute, uint8_t second) {
     LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
     LL_PWR_EnableBkUpAccess();
+    if (LL_RCC_LSE_IsReady() == 0)
+  {
     LL_RCC_ForceBackupDomainReset();
     LL_RCC_ReleaseBackupDomainReset();
     LL_RCC_LSE_Enable();
     while (LL_RCC_LSE_IsReady() != 1){ };
     LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSE);
     LL_RCC_EnableRTC();
+  }
     LL_RTC_DisableWriteProtection(RTC);
 
     LL_RTC_EnableInitMode(RTC);
