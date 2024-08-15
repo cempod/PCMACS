@@ -95,7 +95,7 @@ display_task(void* arg) {
     gpu_label.set_text("GPU");
     gpu_label.set_visibility(false);
 
-    Label logo_label(0,0, &lv_font_montserrat_30);
+    Label logo_label(0,0, &lv_font_montserrat_44);
     logo_label.set_text("PCMACS");
     logo_label.set_visibility(true);
 
@@ -148,7 +148,7 @@ display_task(void* arg) {
             load_label.set_visibility(false);
             temp_label.set_visibility(false);
             if (rtc_inited) {
-                logo_label.set_text("%d:%d:%d",__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetHour(RTC)),__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetMinute(RTC)),__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetSecond(RTC)));
+                logo_label.set_text("%02d:%02d",__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetHour(RTC)),__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetMinute(RTC)));
             }
             logo_label.set_visibility(true);
         }
