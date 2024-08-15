@@ -2,6 +2,7 @@
 #include "rtos.h"
 #include "tusb.h"
 #include "tusb_config.h"
+#include "rtc.h"
 
 static void receive_serial_port(uint8_t buf[], uint32_t count);
 static void cdc_task(void);
@@ -28,11 +29,17 @@ static void receive_serial_port(uint8_t buf[], uint32_t count) {
         break;
     
     case 4:
-    if (count == 4) {
-        uint32_t telemetry = buf[0] | buf[1] << 8 | buf[2] << 16 | buf[3] << 24;
-        xTaskNotify(display_task_handle, telemetry, eSetValueWithOverwrite);
-        xTaskNotify(backlight_task_handle, 100, eSetValueWithOverwrite);
-    }
+        if (count == 4) {
+            uint32_t telemetry = buf[0] | buf[1] << 8 | buf[2] << 16 | buf[3] << 24;
+            xTaskNotify(display_task_handle, telemetry, eSetValueWithOverwrite);
+            xTaskNotify(backlight_task_handle, 100, eSetValueWithOverwrite);
+        }
+    break;
+
+    case 3:
+        {
+            rtc_init(buf[0],buf[1],buf[2]);
+        }
     break;
     
     default:

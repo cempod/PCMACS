@@ -7,6 +7,7 @@
 #include "display_interface.hpp"
 #include <stdio.h>
 #include "stm32f4xx_ll_rtc.h"
+#include "stm32f4xx_ll_rcc.h"
 
 void my_disp_flush(lv_display_t * disp, const lv_area_t * area, uint8_t * color_p);
 static bool is_data_lost(uint32_t tick, uint32_t last_tick);
@@ -101,6 +102,12 @@ display_task(void* arg) {
     xTaskNotify(backlight_task_handle, 100, eSetValueWithOverwrite);
 
     while (1) {
+        static bool rtc_inited = false;
+        if (!rtc_inited) {
+            if (LL_RCC_LSE_IsReady() == 1) {
+                rtc_inited = true;
+            }
+        }
         static uint32_t last_tick = 0;
         static uint32_t telemetry_notified_val=0;
         BaseType_t xResult = xTaskNotifyWait(pdFALSE, 0xFFFFFF, &telemetry_notified_val, pdMS_TO_TICKS(1));
@@ -140,7 +147,9 @@ display_task(void* arg) {
             gpu_temp_label_line.set_visibility(false);
             load_label.set_visibility(false);
             temp_label.set_visibility(false);
-            logo_label.set_text("%d:%d:%d",__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetHour(RTC)),__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetMinute(RTC)),__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetSecond(RTC)));
+            if (rtc_inited) {
+                logo_label.set_text("%d:%d:%d",__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetHour(RTC)),__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetMinute(RTC)),__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetSecond(RTC)));
+            }
             logo_label.set_visibility(true);
         }
         taskENTER_CRITICAL();

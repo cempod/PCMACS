@@ -24,6 +24,4 @@ board_init(void) {
     exti_init();
 
     usb_init();
-
-    rtc_init();
 }
