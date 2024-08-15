@@ -6,7 +6,7 @@ static bool need_some_sleep(uint32_t tick, uint32_t last_tick);
 
 void
 backlight_task(void* arg) {
-    uint8_t step = 5;
+    uint8_t step = 1;
 
     while (1) {
         static uint32_t last_tick = 0;
@@ -38,7 +38,7 @@ backlight_task(void* arg) {
         if (need_some_sleep(xTaskGetTickCount(), last_tick)) {
             target_brightness = 0;
         }
-        vTaskDelay(pdMS_TO_TICKS(50));
+        vTaskDelay(pdMS_TO_TICKS(20));
     }
 }
 
