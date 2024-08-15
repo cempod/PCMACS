@@ -93,6 +93,10 @@ display_task(void* arg) {
     gpu_label.set_text("GPU");
     gpu_label.set_visibility(false);
 
+    Label logo_label(0,0, &lv_font_montserrat_30);
+    logo_label.set_text("PCMACS");
+    logo_label.set_visibility(true);
+
     xTaskNotify(backlight_task_handle, 100, eSetValueWithOverwrite);
 
     while (1) {
@@ -119,6 +123,7 @@ display_task(void* arg) {
             gpu_temp_label_line.set_visibility(true);
             load_label.set_visibility(true);
             temp_label.set_visibility(true);
+            logo_label.set_visibility(false);
             last_tick = xTaskGetTickCount();
         }
         if (is_data_lost(xTaskGetTickCount(), last_tick)) {
@@ -134,6 +139,7 @@ display_task(void* arg) {
             gpu_temp_label_line.set_visibility(false);
             load_label.set_visibility(false);
             temp_label.set_visibility(false);
+            logo_label.set_visibility(true);
         }
         taskENTER_CRITICAL();
         lv_timer_handler();
