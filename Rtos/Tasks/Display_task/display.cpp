@@ -99,6 +99,10 @@ display_task(void* arg) {
     logo_label.set_text("PCMACS");
     logo_label.set_visibility(true);
 
+    Label sub_logo_label(0,69, &lv_font_montserrat_14);
+    sub_logo_label.set_text("PC Monitoring & Anti Cat System");
+    sub_logo_label.set_visibility(true);
+
     xTaskNotify(backlight_task_handle, 100, eSetValueWithOverwrite);
 
     while (1) {
@@ -132,6 +136,7 @@ display_task(void* arg) {
             load_label.set_visibility(true);
             temp_label.set_visibility(true);
             logo_label.set_visibility(false);
+            sub_logo_label.set_visibility(false);
             last_tick = xTaskGetTickCount();
         }
         if (is_data_lost(xTaskGetTickCount(), last_tick)) {
@@ -148,6 +153,7 @@ display_task(void* arg) {
             load_label.set_visibility(false);
             temp_label.set_visibility(false);
             if (rtc_inited) {
+                sub_logo_label.set_visibility(false);
                 logo_label.set_text("%02d:%02d",__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetHour(RTC)),__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetMinute(RTC)));
             }
             logo_label.set_visibility(true);
