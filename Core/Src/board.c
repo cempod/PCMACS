@@ -5,6 +5,7 @@
 #include "pwm.h"
 #include "exti.h"
 #include "usb.h"
+#include "rtc.h"
 
 void
 board_init(void) {
@@ -23,5 +24,4 @@ board_init(void) {
     exti_init();
 
     usb_init();
-
 }
