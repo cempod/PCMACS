@@ -3,6 +3,8 @@
 #include "tusb.h"
 #include "tusb_config.h"
 #include "rtc.h"
+#include "lvgl.h"
+#include "display.h"
 
 static void receive_serial_port(uint8_t buf[], uint32_t count);
 static void cdc_task(void);
@@ -39,6 +41,14 @@ static void receive_serial_port(uint8_t buf[], uint32_t count) {
     case 3:
         {
             rtc_init(buf[0],buf[1],buf[2]);
+        }
+    break;
+    case 8:
+        {
+            if (buf[0] == 0xC9 && buf[1] == 0xDA && buf[7] == 0x36) {
+                lv_color_t color = LV_COLOR_MAKE(buf[4], buf[5], buf[6]);
+                set_theme(color);
+            }
         }
     break;
     

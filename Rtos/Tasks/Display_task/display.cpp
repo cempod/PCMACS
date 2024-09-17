@@ -3,7 +3,6 @@
 #include "board.h"
 #include "gpio.h"
 #include "ST7789/st7789.h"
-#include "lvgl/lvgl.h"
 #include "display_interface.hpp"
 #include <stdio.h>
 #include "stm32f4xx_ll_rtc.h"
@@ -11,6 +10,8 @@
 
 void my_disp_flush(lv_display_t * disp, const lv_area_t * area, uint8_t * color_p);
 static bool is_data_lost(uint32_t tick, uint32_t last_tick);
+lv_color_t main_theme;
+bool theme_changed;
 
 void 
 vApplicationTickHook(void) {
@@ -28,6 +29,7 @@ display_task(void* arg) {
     lv_display_set_flush_cb(display, my_disp_flush);
 
     interface_init();
+    theme_changed = false;
 
     LoadMeter cpu_meter(-230,0,240);
     cpu_meter.set_rotation(305);
@@ -157,6 +159,23 @@ display_task(void* arg) {
                 logo_label.set_text("%02d:%02d",__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetHour(RTC)),__LL_RTC_CONVERT_BCD2BIN(LL_RTC_TIME_GetMinute(RTC)));
             }
             logo_label.set_visibility(true);
+            if (theme_changed) {
+                theme_changed = false;
+                cpu_meter.set_theme(main_theme);
+                cpu_load_label.set_theme(main_theme);
+                gpu_meter.set_theme(main_theme);
+                gpu_load_label.set_theme(main_theme);
+                cpu_temp_label.set_theme(main_theme);
+                gpu_temp_label.set_theme(main_theme);
+                cpu_load_label_line.set_theme(main_theme);
+                cpu_temp_label_line.set_theme(main_theme);
+                gpu_load_label_line.set_theme(main_theme);
+                gpu_temp_label_line.set_theme(main_theme);
+                load_label.set_theme(main_theme);
+                temp_label.set_theme(main_theme);
+                sub_logo_label.set_theme(main_theme);
+                logo_label.set_theme(main_theme);
+            }
         }
         taskENTER_CRITICAL();
         lv_timer_handler();
@@ -184,4 +203,10 @@ is_data_lost(uint32_t tick, uint32_t last_tick) {
         }
     }
     return false;
+}
+
+void
+set_theme(lv_color_t theme) {
+    main_theme = theme;
+    theme_changed = true;
 }

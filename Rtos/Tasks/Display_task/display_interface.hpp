@@ -19,6 +19,7 @@ class LoadMeter {
         void set_angles(int a, int b);
         void set_reverse(bool rev);
         void set_visibility(bool visibility);
+        void set_theme(lv_color_t theme);
 };
 
 class LabelLine {
@@ -30,6 +31,7 @@ class LabelLine {
     LabelLine(lv_point_precise_t* points, int num);
     void set_offsets(int x_offset, int y_offset);
     void set_visibility(bool visibility);
+    void set_theme(lv_color_t theme);
 };
 
 class Label {
@@ -41,4 +43,5 @@ class Label {
     Label(int x_offset, int y_offset, const lv_font_t * font);
     void set_text(const char* msg, ...);
     void set_visibility(bool visibility);
+    void set_theme(lv_color_t theme);
 };

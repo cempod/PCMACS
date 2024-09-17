@@ -56,6 +56,11 @@ LoadMeter::set_visibility(bool visibility) {
     }
 }
 
+void 
+LoadMeter::set_theme(lv_color_t theme) {
+    lv_obj_set_style_arc_color(arc, theme, LV_PART_INDICATOR);
+}
+
 LabelLine::LabelLine(lv_point_precise_t * points, int num) {
     lv_style_init(&style_line);
     lv_style_set_line_width(&style_line, 2);
@@ -79,6 +84,11 @@ LabelLine::set_visibility(bool visibility) {
     } else {
     lv_obj_add_flag(line_l, LV_OBJ_FLAG_HIDDEN);
     }
+}
+
+void 
+LabelLine::set_theme(lv_color_t theme) {
+    lv_style_set_line_color(&style_line, theme);
 }
 
 Label::Label(int x_offset, int y_offset, const lv_font_t * font) {
@@ -108,4 +118,9 @@ Label::set_visibility(bool visibility) {
     } else {
     lv_obj_add_flag(label, LV_OBJ_FLAG_HIDDEN);
     }
+}
+
+void 
+Label::set_theme(lv_color_t theme) {
+    lv_obj_set_style_text_color(label, theme, 0); 
 }
